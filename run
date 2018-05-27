@@ -24,7 +24,7 @@ read -p "Do you want to run mysql-server y/N? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo    # (optional) move to a new line
-    docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root --network isolated -d mysql
+    docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root --network isolated -d mysql:5.7.22
     printf "\n\nmysql-server runned\n\n"
 else
     printf "not running mysql\n\n"
