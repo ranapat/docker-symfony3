@@ -1,0 +1,7 @@
+neo:
+    resource: "@NeoBundle/Controller/"
+    type:     annotation
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

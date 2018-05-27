@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ -n "$1" ]; then
+   VERSION=$1
+else
+    printf "Version shall be set as a parameter.\nExample:\n\tbuild YOUR_VERSION\n\n"
+
+    read -p "Do you want to build image with version 0.0.1 y/N? " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo    # (optional) move to a new line
+        ./build 0.0.1
+    else
+        echo "exiting"
+    fi
+
+    exit -1
+fi
+
+docker build -f docker/application/Dockerfile -t app/server:$VERSION docker/application/
+
+printf "\nShow all app/server images below \n\n"
+
+printf "REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE\n\n"
+docker images | grep app/server
+
+printf "\n\n"
+
+./run $VERSION

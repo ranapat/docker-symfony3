@@ -1,0 +1,16 @@
+services:
+    neo.import:
+        class: NeoBundle\Service\Import
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@buzz"
+            - "@neo.repository"
+            - "%api.nasa.gov_api.key%"
+            - "%api.nasa.gov_import.url%"
+            - "%api.nasa.gov_days.to.import%"
+
+    neo.repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: 'doctrine.orm.default_entity_manager:getRepository'
+        arguments:
+            - NeoBundle\Entity\Neo

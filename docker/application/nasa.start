@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ ! -f /nasa/nasa.initialized ]; then
+   cd /var/www/html/nasa
+   composer update &>> /nasa/nasa.initialization.log
+   bin/console doctrine:database:create &>> /nasa/nasa.initialization.log
+   bin/console doctrine:migrations:migrate -n &>> /nasa/nasa.initialization.log
+
+   if [ ! -f /var/www/html/nasa/app/config/parameters.yml ]; then
+       cp /var/www/html/nasa/app/config/parameters.yml.dist /var/www/html/nasa/app/config/parameters.yml
+   fi
+
+   touch /nasa/nasa.initialized
+fi
+
+/etc/init.d/nginx start & /etc/init.d/php7.1-fpm start & tail -f /var/log/dmesg
